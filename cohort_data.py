@@ -15,14 +15,17 @@ def unique_houses(filename):
     """
 
     houses = set()
+    
 
     # Code goes here
 
-    cohort_data = open("cohort_data.txt")
+    with open(filename) as cohort_data:
     
-    for line in cohort_data 
-        person = line.split("|")
-        houses.add(person[2])
+        for line in cohort_data:
+            person = line.split("|")
+            if person[2] != '':
+                houses.add(person[2])
+
 
     return houses
 
