@@ -163,6 +163,15 @@ def all_students_tuple_list(filename):
     student_list = []
 
     # Code goes here
+    with open(filename) as cohort_data:
+    
+        for line in cohort_data:
+            line = line.rstrip()
+            person = line.split("|")
+            person = (person[0] +" "+ person[1],person[2],person[3], person[4])
+
+            if person[3] != "I" and person[3] != "G":
+                student_list.append(person)
 
     return student_list
 
@@ -186,8 +195,15 @@ def find_cohort_by_student_name(student_list):
     'Student not found.'
 
     """
+    student_search = input("Who are you looking for?")
 
-    # Code goes here
+    for student in student_list:
+        if student[0] == student_search:
+            
+            return student[0] + " was in the " + student[3] + " cohort."
+
+
+    
 
     return "Student not found."
 
@@ -211,6 +227,34 @@ def find_name_duplicates(filename):
     duplicate_names = set()
 
     # Code goes here
+    winter_16 = set()
+    spring_16 = set()
+    summer_16 = set()
+    fall_15 = set()
+    
+
+    # Code goes here
+    with open(filename) as cohort_data:
+    
+        for line in cohort_data:
+            line = line.rstrip()
+            person = line.split("|")
+
+            
+            if person[4] != "I" and person[4] != "G":
+                if person[4] == "Winter 2016":
+                    winter_16.add(person[1])
+                elif person[4] == "Spring 2016":
+                    spring_16.add(person[1])
+                elif person[4] == "Summer 2016":
+                    summer_16.add(person[1])
+                else:
+                    fall_15.add(person[1])
+
+    our_list = list((winter_16 & spring_16) & (summer_16 & fall_15))
+
+    duplicate_names = set(our_list)
+
 
     return duplicate_names
 
@@ -243,14 +287,26 @@ def find_house_members_by_student_name(student_list):
 
     # Code goes here
 
+    student_search = input("Choose a student:")
+
+    for student in student_list:
+        if student[0] == student_search:
+            
+            print student[0] + " was in house " + student[2] + " in the " student[3] + " cohort."
+
+    print("The following students are also in their house:")
+ 
+
     return
 
 
 #############################################################################
 # Here is some useful code to run these functions without doctests!
 
-# find_cohort_by_student_name(all_students_data)
-# find_house_members_by_student_name(all_students_data)
+all_students_data = all_students_tuple_list("cohort_data.txt")
+#print(find_cohort_by_student_name(all_students_data))
+
+find_house_members_by_student_name(all_students_data)
 
 
 ##############################################################################
