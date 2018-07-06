@@ -53,6 +53,38 @@ def sort_by_cohort(filename):
 
     # Code goes here
 
+    with open(filename) as cohort_data:
+    
+        for line in cohort_data:
+            line = line.rstrip()
+            person = line.split("|")
+
+            
+            if person[4] != "I":
+                #all_students.append(person[0] +" "+ person[1])
+                
+                if person[4] != "G":
+                    if person[4] == "Winter 2016":
+                        winter_16.append(person[0] + " " + person[1])
+                    elif person[4] == "Spring 2016":
+                        spring_16.append(person[0] + " " + person[1])
+                    elif person[4] == "Summer 2016":
+                        summer_16.append(person[0] + " " + person[1])
+                    else:
+                        fall_15.append(person[0] + " " + person[1])
+            
+
+                else:
+                    ghosts.append(person[0] + " " + person[1])
+
+    all_students.append(fall_15)
+    all_students.append(winter_16)
+    all_students.append(spring_16)
+    all_students.append(summer_16)
+    all_students.append(ghosts)
+
+    # all_students = [fall_15, winter_16, spring_16, summer_16, ghosts]
+
     return all_students
 
 
@@ -80,6 +112,37 @@ def hogwarts_by_house(filename):
     instructors = []
 
     # Code goes here
+    with open(filename) as cohort_data:
+    
+        for line in cohort_data:
+            line = line.rstrip()
+            person = line.split("|")
+
+            if person[4] == "I":
+                instructors.append(person[1])
+            elif person[4] == "G":
+                ghosts.append(person[1])
+            else:
+                if person[2] == "Dumbledore's Army":
+                    dumbledores_army.append(person[1])
+                elif person[2] == "Gryffindor":
+                    gryffindor.append(person[1])
+                elif person[2] == "Slytherin":
+                    slytherin.append(person[1])
+                elif person[2] == "Ravenclaw":
+                    ravenclaw.append(person[1])
+                else: 
+                    hufflepuff.append(person[1])
+    
+    all_hogwarts.append(sorted(dumbledores_army))
+    all_hogwarts.append(sorted(gryffindor))
+    all_hogwarts.append(sorted(hufflepuff))
+    all_hogwarts.append(sorted(ravenclaw))
+    all_hogwarts.append(sorted(slytherin))
+    all_hogwarts.append(sorted(ghosts))
+    all_hogwarts.append(sorted(instructors))
+
+
 
     return all_hogwarts
 
